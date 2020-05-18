@@ -5,6 +5,8 @@ const exphbs = require('express-handlebars')
 const mongoose = require('mongoose') // 載入 mongoose
 const Todo = require('./models/todo') // 載入 Todo model
 const bodyParser = require('body-parser')
+// 載入 method-override
+const methodOverride = require('method-override')
 // 設定連線到 mongoDB
 mongoose.connect('mongodb://localhost/restaurant_list', { useNewUrlParser: true, useUnifiedTopology: true }) 
 
@@ -23,7 +25,7 @@ db.once('open', () => {
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-app.use(express.static('public'), bodyParser.urlencoded({ extended: true }))
+app.use(express.static('public'), bodyParser.urlencoded({ extended: true }), methodOverride('_method'))
 
 app.get('/', (req, res) => {
   Todo.find() // 取出 Todo model 裡的所有資料
@@ -68,7 +70,7 @@ app.get('/todos/:id/edit', (req, res) => {
 })
 
 //修改並將編輯的內容放進伺服器內
-app.post('/todos/:id/edit', (req, res) => {
+app.put('/todos/:id', (req, res) => {
   const id = req.params.id
   const name = req.body.name
   const nameEn = req.body.name_en
@@ -99,7 +101,7 @@ app.post('/todos/:id/edit', (req, res) => {
 })
 
 //設定刪除的路由
-app.post('/todos/:id/delete', (req, res) => {
+app.delete('/todos/:id', (req, res) => {
   const id = req.params.id
   return Todo.findById(id)
     .then(todo => todo.remove())
