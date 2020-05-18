@@ -6,13 +6,15 @@ const router = express.Router()
 const todos = require('./modules/todos')
 const search = require('./modules/search')
 const home = require('./modules/home')
-
+const sort = require('./modules/sort')
 
 router.use('/', home)
 
 router.use('/todos', todos)
 
 router.use('/search', search)
+
+router.use('/sort', sort)
 
 // 匯出路由器
 module.exports = router
