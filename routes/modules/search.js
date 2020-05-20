@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
         if (results.length > 0) {
           res.render('index', { todos: results, keyword: keyword })
         } else {
-          res.render('nothing', { keyword: keyword })
+          res.render('index', { keyword: keyword })
         }
       })
       .catch(error => console.log(error))

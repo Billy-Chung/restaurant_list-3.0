@@ -8,7 +8,7 @@ router.get('/new', (req, res) => {
 })
 
 //在資料庫新增餐廳資料的路由
-router.post('/todos', (req, res) => {
+router.post('/', (req, res) => {
     console.log(req.body)
     if (!req.body.image.length) {
         req.body.image = 'https://static.vecteezy.com/system/resources/previews/000/091/119/large_2x/free-restaurant-logo-on-paper-plate-vector.jpg'
